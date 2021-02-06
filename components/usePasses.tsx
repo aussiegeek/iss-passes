@@ -25,7 +25,7 @@ export function usePasses(
 ): QueryObserverResult<Iss, Error> {
   const result = useQuery<Iss, Error>("repoData", () =>
     fetch(
-      `https://api.g7vrd.co.uk/v1/satellite-passes/25544/${coords.latitude}/${coords.longitude}.json?minelevation=30&hours=72`
+      `https://api.g7vrd.co.uk/v1/satellite-passes/25544/${coords.latitude}/${coords.longitude}.json?minelevation=10&hours=72`
     ).then((res) => res.json())
   );
 
