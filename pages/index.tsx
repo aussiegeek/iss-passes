@@ -6,51 +6,58 @@ import { FormattedDate, FormattedTime } from "react-intl";
 import React from "react";
 import { usePasses } from "../components/usePasses";
 
+const Th: React.FC = ({ children }) => (
+  <th className="text-right border p-1">{children}</th>
+);
+
+const Td: React.FC = ({ children }) => (
+  <td className="text-right border p-1">{children}</td>
+);
 const ShowData = ({ position }: { position: Success }) => {
   const { data } = usePasses(position.coords);
   if (!data) {
     return <div>no data</div>;
   }
   return (
-    <>
-      <h1>ISS</h1>
+    <div className="container-md">
+      <h1 className="text-xl mb-10">ISS</h1>
 
-      <table style={{ border: "1px solid #eee" }}>
+      <table className="table-auto w-full">
         <thead>
           <tr>
-            <th>Date</th>
-            <th>Start</th>
-            <th>TCA</th>
-            <th>End</th>
-            <th>Max Elevation</th>
+            <Th>Date</Th>
+            <Th>Start</Th>
+            <Th>TCA</Th>
+            <Th>End</Th>
+            <Th>Max Elevation</Th>
           </tr>
         </thead>
         <tbody>
           {data.passes.map((pass) => (
             <tr key={pass.start}>
-              <td>
+              <Td>
                 <FormattedDate
                   value={pass.start}
                   weekday="short"
                   month="short"
                   day="numeric"
                 />
-              </td>
-              <td>
+              </Td>
+              <Td>
                 <FormattedTime value={pass.start} />
-              </td>
-              <td>
+              </Td>
+              <Td>
                 <FormattedTime value={pass.tca} />
-              </td>
-              <td>
+              </Td>
+              <Td>
                 <FormattedTime value={pass.end} />
-              </td>
-              <td>{pass.max_elevation}</td>
+              </Td>
+              <Td>{pass.max_elevation}</Td>
             </tr>
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 export default function Home(): JSX.Element {

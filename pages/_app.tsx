@@ -1,5 +1,5 @@
 import type { AppProps } from "next/app";
-import "../styles/globals.css";
+import "tailwindcss/tailwind.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import React from "react";
 import { IntlProvider } from "react-intl";
@@ -9,7 +9,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <IntlProvider messages={{}} locale="en" defaultLocale="en">
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <div className="m-10">
+          <Component {...pageProps} />
+        </div>
       </QueryClientProvider>
     </IntlProvider>
   );
