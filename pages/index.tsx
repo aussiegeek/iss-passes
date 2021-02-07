@@ -4,7 +4,7 @@ import { Location } from "../components/location";
 
 import { FormattedDate, FormattedTime } from "react-intl";
 import React from "react";
-import { usePasses } from "../components/usePasses";
+import { Pass, usePasses } from "../components/usePasses";
 import Spin from "../components/Spin";
 
 const Th: React.FC = ({ children }) => (
@@ -39,32 +39,51 @@ const ShowData = ({ position }: { position: Success }) => {
         </thead>
         <tbody>
           {data.passes.map((pass) => (
-            <tr key={pass.start}>
-              <Td>
-                <FormattedDate
-                  value={pass.start}
-                  weekday="short"
-                  month="short"
-                  day="numeric"
-                />
-              </Td>
-              <Td>
-                <FormattedTime value={pass.start} />
-              </Td>
-              <Td>
-                <FormattedTime value={pass.tca} />
-              </Td>
-              <Td>
-                <FormattedTime value={pass.end} />
-              </Td>
-              <Td>{pass.max_elevation}</Td>
-            </tr>
+            <PassRow key={pass.start} pass={pass} />
           ))}
         </tbody>
       </table>
     </div>
   );
 };
+
+const PassRow: React.FC<{ pass: Pass }> = ({ pass }) => {
+  return (
+    <tr className={textClassSize(pass.max_elevation)} key={pass.start}>
+      <Td>
+        <FormattedDate
+          value={pass.start}
+          weekday="short"
+          month="short"
+          day="numeric"
+        />
+      </Td>
+      <Td>
+        <FormattedTime value={pass.start} />
+      </Td>
+      <Td>
+        <FormattedTime value={pass.tca} />
+      </Td>
+      <Td>
+        <FormattedTime value={pass.end} />
+      </Td>
+      <Td>{pass.max_elevation}</Td>
+    </tr>
+  );
+};
+
+const textClassSize = (max_elevation: number): string => {
+  if (max_elevation > 80) {
+    return "text-5xl";
+  } else if (max_elevation > 60) {
+    return "text-4xl";
+  } else if (max_elevation > 40) {
+    return "text-3xl";
+  } else {
+    return "text-base";
+  }
+};
+
 export default function Home(): JSX.Element {
   return (
     <div>
