@@ -7,7 +7,7 @@ export const Location: React.FC<{
   const position = useGeoLocation();
 
   if (position.state != "success") {
-    return <div>no datas yet</div>;
+    return <div>Fetching location</div>;
   }
 
   return render({ position });

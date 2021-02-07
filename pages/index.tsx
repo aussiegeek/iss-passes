@@ -5,6 +5,7 @@ import { Location } from "../components/location";
 import { FormattedDate, FormattedTime } from "react-intl";
 import React from "react";
 import { usePasses } from "../components/usePasses";
+import Spin from "../components/Spin";
 
 const Th: React.FC = ({ children }) => (
   <th className="text-right border p-1">{children}</th>
@@ -14,9 +15,13 @@ const Td: React.FC = ({ children }) => (
   <td className="text-right border p-1">{children}</td>
 );
 const ShowData = ({ position }: { position: Success }) => {
-  const { data } = usePasses(position.coords);
+  const { data, isLoading } = usePasses(position.coords);
+
+  if (isLoading) {
+    return <Spin />;
+  }
   if (!data) {
-    return <div>no data</div>;
+    return <div>Error loading data</div>;
   }
   return (
     <div className="container-md">
